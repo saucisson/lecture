@@ -1,15 +1,11 @@
 import React from 'react';
 import {
   Button,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Switch,
   Text,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import Styles from "../components/Styles";
 
 class _Score extends React.Component {
 
@@ -20,23 +16,23 @@ class _Score extends React.Component {
   render() {
     const correct = this.props.correct
     const incorrect = this.props.incorrect
-    return <View style={styles.container}>
-      <ScrollView style={styles.container}>
-        <View style={styles.onrow}>
-          <Text style={styles.correct}>Correct:</Text>
-          <Text style={styles.correct}>{correct}</Text>
+    return <View style={Styles.main}>
+      <View style={Styles.space}></View>
+      <View style={Styles.scores}>
+        <View style={Styles.score}>
+          <Text style={Styles.scoreText}>{correct} 👍</Text>
         </View>
-        <View style={styles.onrow}>
-          <Text style={styles.incorrect}>Incorrect:</Text>
-          <Text style={styles.incorrect}>{incorrect}</Text>
+        <View style={Styles.score}>
+          <Text style={Styles.scoreText}>{incorrect} 👎</Text>
         </View>
-        <View style={styles.buttons}>
-          <Button onPress={this.props.reset}
-                  title="Reset"
-                  accessibilityLabel="Reset"
-          />
-        </View>
-      </ScrollView>
+      </View>
+      <View style={Styles.space}></View>
+      <View>
+        <Button onPress={this.props.reset}
+                title="Remettre à zéro"
+                accessibilityLabel="Reset"
+        />
+      </View>
     </View>;
   }
 
@@ -62,25 +58,3 @@ function mapDispatchToProps(dispatch) {
 const Score = connect(mapStateToProps, mapDispatchToProps)(_Score);
 
 export default Score;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  buttons: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  onrow: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  correct: {
-    fontSize: 24,
-  },
-  incorrect: {
-    fontSize: 24,
-  },
-});

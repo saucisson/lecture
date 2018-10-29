@@ -73,9 +73,9 @@ function generateSyllable(state) {
   }
   switch (order) {
     case 'VOWEL_FIRST':
-       return vowel + consonant;
+       return [vowel, consonant];
     case 'CONSONANT_FIRST':
-      return consonant + vowel;
+      return [consonant, vowel];
   }
 }
 
@@ -105,6 +105,9 @@ function update(state, action) {
       return result;
     case 'INCORRECT':
       result.game.incorrect += 1;
+      result.game.syllable = generateSyllable(result);
+      return result;
+    case 'NEXT':
       result.game.syllable = generateSyllable(result);
       return result;
     case 'RESET':
