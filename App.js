@@ -21,6 +21,16 @@ let persistor = persistStore(store)
 
 export default class App extends React.Component {
 
+  async componentDidMount() {
+    await Font.loadAsync({
+      'cursive': require('./assets/fonts/Clicker_Script/ClickerScript-Regular.ttf'),
+      'computer': require('./assets/fonts/Roboto_Slab/RobotoSlab-Regular.ttf'),
+    });
+    this.setState({
+      fontLoaded: true,
+    });
+  }
+
   render() {
     return <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

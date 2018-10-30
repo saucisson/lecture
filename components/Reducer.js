@@ -55,6 +55,8 @@ function any(x) {
 }
 
 function generateSyllable(state) {
+  const font = any(['computer', 'cursive']);
+  const capital = any([false, true]);
   const order = any(orders);
   const vowels = Object.entries(state.letters.vowels).filter(([letter, selected]) => {
     return selected;
@@ -73,9 +75,15 @@ function generateSyllable(state) {
   }
   switch (order) {
     case 'VOWEL_FIRST':
-       return [vowel, consonant];
+       return {
+         syllable: (capital ? vowel.toUpperCase() : vowel) + consonant,
+         font: font,
+       };
     case 'CONSONANT_FIRST':
-      return [consonant, vowel];
+      return {
+        syllable: (capital ? consonant.toUpperCase() : consonant) + vowel,
+        font: font,
+      };
   }
 }
 
@@ -85,7 +93,7 @@ function update(state, action) {
       letters: initialLetters,
       game: initialGame,
     };
-    result.game.syllable = generateSyllable(result);
+    result.game.data = generateSyllable(result);
     return result;
   }
   let result = {...state};
@@ -97,18 +105,18 @@ function update(state, action) {
       if (action.letter in result.letters.consonants) {
         result.letters.consonants[action.letter] = !state.letters.consonants[action.letter];
       }
-      result.game.syllable = generateSyllable(result);
+      result.game.data = generateSyllable(result);
       return result;
     case 'CORRECT':
       result.game.correct += 1;
-      result.game.syllable = generateSyllable(result);
+      result.game.data = generateSyllable(result);
       return result;
     case 'INCORRECT':
       result.game.incorrect += 1;
-      result.game.syllable = generateSyllable(result);
+      result.game.data = generateSyllable(result);
       return result;
     case 'NEXT':
-      result.game.syllable = generateSyllable(result);
+      result.game.data = generateSyllable(result);
       return result;
     case 'RESET':
       result.game.correct = 0;

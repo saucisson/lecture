@@ -47,8 +47,13 @@ const Styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  syllableText: {
+  syllableTextCursive: {
     fontSize: 96,
+    fontFamily: 'cursive',
+  },
+  syllableTextComputer: {
+    fontSize: 96,
+    fontFamily: 'computer',
   },
   answers: {
     flex: 1,
