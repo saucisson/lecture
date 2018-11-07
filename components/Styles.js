@@ -6,13 +6,18 @@ const Styles = StyleSheet.create({
   main: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   space: {
     flex: 1,
   },
   //
-  lettersGroup: {
+  vowels: {
+    flex: 0.3,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
+  consonants: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -35,6 +40,17 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     width: 50,
+  },
+  options: {
+    flex: 0.5,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
+  option: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   //
   game: {

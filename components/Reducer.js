@@ -1,43 +1,5 @@
 import { combineReducers } from 'redux';
-
-const initialLetters = {
-  vowels: {
-    'a': false,
-    'e': false,
-    'i': false,
-    'o': false,
-    'u': false,
-    'y': false,
-    'é': false,
-    'è': false,
-    'ê': false,
-    'à': false,
-    'â': false,
-    'î': false,
-  },
-  consonants: {
-    'b': false,
-    'c': false,
-    'd': false,
-    'f': false,
-    'g': false,
-    'h': false,
-    'j': false,
-    'k': false,
-    'l': false,
-    'm': false,
-    'n': false,
-    'p': false,
-    'q': false,
-    'r': false,
-    's': false,
-    't': false,
-    'v': false,
-    'w': false,
-    'x': false,
-    'z': false,
-  },
-};
+import Data from '../components/Data';
 
 const orders = [
   'VOWEL_FIRST',
@@ -54,10 +16,14 @@ function any(x) {
   return x[Math.floor(Math.random() * x.length)];
 }
 
+function upperCase(word) {
+  return word[0].toUpperCase() + word.substring(1);
+}
+
 function generateSyllable(state) {
   const font = any(['computer', 'cursive']);
   const capital = any([false, true]);
-  const order = any(orders);
+  const order = state.letters.useVowelFirst ? any(orders) : 'CONSONANT_FIRST';
   const vowels = Object.entries(state.letters.vowels).filter(([letter, selected]) => {
     return selected;
   }).map(([letter, selected]) => {
@@ -73,16 +39,19 @@ function generateSyllable(state) {
   if (typeof vowel === 'undefined' || typeof consonant === 'undefined') {
     return undefined;
   }
+  let word = undefined;
   switch (order) {
     case 'VOWEL_FIRST':
+      word = vowel + consonant;
        return {
-         syllable: (capital ? vowel.toUpperCase() : vowel) + consonant,
-         font: font,
+         syllable: (state.letters.useUpperCase && capital ? upperCase(word) : word),
+         font: state.letters.useCursive && font ? font : 'computer',
        };
     case 'CONSONANT_FIRST':
+      word = consonant + vowel;
       return {
-        syllable: (capital ? consonant.toUpperCase() : consonant) + vowel,
-        font: font,
+        syllable: (state.letters.useUpperCase && capital ? upperCase(word) : word),
+        font: state.letters.useCursive && font ? font : 'computer',
       };
   }
 }
@@ -90,7 +59,7 @@ function generateSyllable(state) {
 function update(state, action) {
   if (typeof state === 'undefined') {
     const result = {
-      letters: initialLetters,
+      letters: Data,
       game: initialGame,
     };
     result.game.data = generateSyllable(result);
@@ -99,13 +68,22 @@ function update(state, action) {
   let result = {...state};
   switch (action.type) {
     case 'TOGGLE_LETTER':
-      if (action.letter in result.letters.vowels) {
+      if (action.letter in Data.vowels) {
         result.letters.vowels[action.letter] = !state.letters.vowels[action.letter];
       }
-      if (action.letter in result.letters.consonants) {
+      if (action.letter in Data.consonants) {
         result.letters.consonants[action.letter] = !state.letters.consonants[action.letter];
       }
       result.game.data = generateSyllable(result);
+      return result;
+    case 'TOGGLE_VOWEL_FIRST':
+      result.letters.useVowelFirst = !state.letters.useVowelFirst;
+      return result;
+    case 'TOGGLE_CURSIVE':
+      result.letters.useCursive = !state.letters.useCursive;
+      return result;
+    case 'TOGGLE_UPPER_CASE':
+      result.letters.useUpperCase = !state.letters.useUpperCase;
       return result;
     case 'CORRECT':
       result.game.correct += 1;
