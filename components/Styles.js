@@ -13,7 +13,7 @@ const Styles = StyleSheet.create({
   },
   //
   vowels: {
-    flex: 0.3,
+    flex: 0.5,
     flexDirection: 'column',
     justifyContent: 'space-around',
   },
@@ -23,7 +23,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   header: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -42,7 +42,7 @@ const Styles = StyleSheet.create({
     width: 50,
   },
   options: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
   },
@@ -64,7 +64,7 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   syllableTextCursive: {
-    fontSize: 96,
+    fontSize: 128,
     fontFamily: 'cursive',
   },
   syllableTextComputer: {
@@ -112,6 +112,7 @@ const Styles = StyleSheet.create({
   },
   explanationText: {
     fontSize: 16,
+    textAlign: 'justify',
   },
 });
 

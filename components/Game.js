@@ -17,18 +17,16 @@ class _Game extends React.Component {
   render() {
     const fontLoaded = this.props.fontLoaded;
     // FIXME: use fontLoaded
-    const syllable = this.props.syllable;
-    const font = this.props.font;
     return <View style={Styles.main}>
       <View style={Styles.game}>
         <View style={Styles.space}></View>
         <View style={Styles.syllable}>
-        { font == 'cursive'
+        { this.props.font == 'CURSIVE'
         ? <Text style={Styles.syllableTextCursive}>
-            {syllable}
+            {this.props.syllable}
           </Text>
         : <Text style={Styles.syllableTextComputer}>
-            {syllable}
+            {this.props.syllable}
           </Text>
         }
         </View>
@@ -59,8 +57,8 @@ class _Game extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    syllable: state.game.data ? state.game.data.syllable : '?',
-    font: state.game.data ? state.game.data.font : 'computer',
+    syllable: state.game.syllable ? state.game.syllable : '?',
+    font: state.game.font ? state.game.font : 'SCRIPT',
     fontLoaded: state.fontLoaded,
   };
 };

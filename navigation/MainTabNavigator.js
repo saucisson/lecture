@@ -7,6 +7,7 @@ import Letters from '../components/Letters';
 import Game from '../components/Game';
 import Score from '../components/Score';
 import Explanation from '../components/Explanation';
+import Options from '../components/Options';
 
 const LettersStack = createStackNavigator({
   Letters: Letters,
@@ -14,6 +15,24 @@ const LettersStack = createStackNavigator({
 
 LettersStack.navigationOptions = {
   tabBarLabel: 'Lettres',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
+
+const OptionsStack = createStackNavigator({
+  Options: Options,
+});
+
+OptionsStack.navigationOptions = {
+  tabBarLabel: 'Options',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -82,6 +101,7 @@ ExplanationStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   LettersStack,
+  OptionsStack,
   GameStack,
   ScoreStack,
   ExplanationStack,

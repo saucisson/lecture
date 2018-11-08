@@ -70,9 +70,6 @@ class _Letters extends React.Component {
       };
       return <LetterSelection key={letter} {...subdata}/>;
     });
-    const useVowelFirst = this.props.useVowelFirst;
-    const useCursive = this.props.useCursive;
-    const useUpperCase = this.props.useUpperCase;
     return <View style={Styles.main}>
       <View style={Styles.vowels}>
         <View style={Styles.header}>
@@ -90,23 +87,6 @@ class _Letters extends React.Component {
           {consonants}
         </View>
       </View>
-      <View style={Styles.options}>
-        <View style={Styles.option}>
-          <Text>Mettre une voyelle en premier</Text>
-          <Switch value={useVowelFirst}
-                  onValueChange={this.props.toggleVowelFirst}/>
-        </View>
-        <View style={Styles.option}>
-          <Text>Utiliser une police cursive</Text>
-          <Switch value={useCursive}
-                  onValueChange={this.props.toggleCursive}/>
-        </View>
-        <View style={Styles.option}>
-          <Text>Utiliser des majuscules</Text>
-          <Switch value={useUpperCase}
-                  onValueChange={this.props.toggleUpperCase}/>
-        </View>
-      </View>
     </View>;
   }
 
@@ -116,30 +96,11 @@ function mapStateToProps(state) {
   return {
     vowels: {...state.letters.vowels},
     consonants: {...state.letters.consonants},
-    useVowelFirst: state.letters.useVowelFirst,
-    useCursive: state.letters.useCursive,
-    useUpperCase: state.letters.useUpperCase,
   };
 };
 
 function mapDispatchToProps(dispatch) {
-  return {
-    toggleVowelFirst: () => {
-      dispatch({
-        type: 'TOGGLE_VOWEL_FIRST',
-      })
-    },
-    toggleCursive: () => {
-      dispatch({
-        type: 'TOGGLE_CURSIVE',
-      })
-    },
-    toggleUpperCase: () => {
-      dispatch({
-        type: 'TOGGLE_UPPER_CASE',
-      })
-    },
-  };
+  return {};
 };
 
 const Letters = connect(mapStateToProps, mapDispatchToProps)(_Letters);
