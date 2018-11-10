@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Slider,
   Switch,
   Text,
   View,
@@ -29,7 +30,6 @@ class _Options extends React.Component {
           <Switch value={this.props.useConsonantFirst}
                   onValueChange={this.props.toggleConsonantFirst}/>
         </View>
-        <View style={Styles.space}></View>
         <View style={Styles.header}>
           <Text style={Styles.headerText}>Police script</Text>
         </View>
@@ -55,6 +55,19 @@ class _Options extends React.Component {
           <Text>Utiliser des majuscules</Text>
           <Switch value={this.props.useUpperCaseCursive}
                   onValueChange={this.props.toggleUpperCaseCursive}/>
+        </View>
+        <View style={Styles.header}>
+          <Text style={Styles.headerText}>Nombre de syllabes</Text>
+        </View>
+        <View style={Styles.option}>
+          <Slider style={Styles.numberSlider}
+                  value={this.props.numberOfSyllables}
+                  minimumValue={1}
+                  maximumValue={3}
+                  step={1}
+                  onValueChange={this.props.updateNumberOfSyllables}
+                  onSlidingComplete={this.props.updateNumberOfSyllables}/>
+          <Text style={Styles.numberText}>{this.props.numberOfSyllables}</Text>
         </View>
       </View>
     </View>;
@@ -96,6 +109,12 @@ function mapDispatchToProps(dispatch) {
     toggleUpperCaseScript: () => {
       dispatch({
         type: 'TOGGLE_UPPERCASE_SCRIPT',
+      })
+    },
+    updateNumberOfSyllables: (value) => {
+      dispatch({
+        type: 'UPDATE_NUMBER_OF_SYLLABLES',
+        value: Math.round(value),
       })
     },
   };

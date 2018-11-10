@@ -10,6 +10,7 @@ const initialState = {
     useUpperCaseScript: true,
     useCursive: false,
     useUpperCaseCursive: false,
+    numberOfSyllables: 1,
   },
   game: {
     correct: 0,
@@ -42,43 +43,50 @@ function generateSyllable(state) {
   if (typeof font === 'undefined') {
     return undefined;
   }
-  // Select letters order:
-  let orders = [];
-  if (state.options.useVowelFirst) {
-    orders.push('VOWEL_FIRST');
-  }
-  if (state.options.useConsonantFirst) {
-    orders.push('CONSONANT_FIRST');
-  }
-  const order = any(orders);
-  if (typeof order === 'undefined') {
-    return undefined;
-  }
-  // Select vowel and consonant:
-  const vowels = Object.entries(state.letters.vowels).filter(([letter, selected]) => {
-    return selected;
-  }).map(([letter, selected]) => {
-    return letter;
-  });
-  const consonants = Object.entries(state.letters.consonants).filter(([letter, selected]) => {
-    return selected;
-  }).map(([letter, selected]) => {
-    return letter;
-  });
-  const vowel = any(vowels);
-  const consonant = any(consonants);
-  if (typeof vowel === 'undefined' || typeof consonant === 'undefined') {
-    return undefined;
-  }
-  // Build the syllable:
-  let word = undefined;
-  switch (order) {
-    case 'VOWEL_FIRST':
-      word = vowel + consonant;
-      break;
-    case 'CONSONANT_FIRST':
-      word = consonant + vowel;
-      break;
+  let word = "";
+  var i;
+  for (i = 0; i < state.options.numberOfSyllables; i++) {
+    // Select letters order:
+    let orders = [];
+    if (state.options.useVowelFirst) {
+      orders.push('VOWEL_FIRST');
+    }
+    if (state.options.useConsonantFirst) {
+      orders.push('CONSONANT_FIRST');
+    }
+    const order = any(orders);
+    if (typeof order === 'undefined') {
+      return undefined;
+    }
+    // Select vowel and consonant:
+    const vowels = Object.entries(state.letters.vowels).filter(([letter, selected]) => {
+      return selected;
+    }).map(([letter, selected]) => {
+      return letter;
+    });
+    const consonants = Object.entries(state.letters.consonants).filter(([letter, selected]) => {
+      return selected;
+    }).map(([letter, selected]) => {
+      return letter;
+    });
+    const vowel = any(vowels);
+    const consonant = any(consonants);
+    if (typeof vowel === 'undefined' || typeof consonant === 'undefined') {
+      return undefined;
+    }
+    // Build the syllable:
+    switch (order) {
+      case 'VOWEL_FIRST':
+        word = word + vowel + consonant;
+        break;
+      case 'CONSONANT_FIRST':
+        word = word + consonant + vowel;
+        break;
+    }
+    // FIXME
+    // if (i < state.options.numberOfSyllables-1) {
+    //   word = word + " ";
+    // }
   }
   // Capitalize the first letter:
   const capital = any([false, true]);
@@ -147,6 +155,11 @@ function update(state, action) {
     case 'TOGGLE_UPPERCASE_SCRIPT':
       result.options = {...result.options};
       result.options.useUpperCaseScript = !state.options.useUpperCaseScript;
+      generateSyllable(result);
+      return result;
+    case 'UPDATE_NUMBER_OF_SYLLABLES':
+      result.options = {...result.options};
+      result.options.numberOfSyllables = action.value;
       generateSyllable(result);
       return result;
     case 'CORRECT':

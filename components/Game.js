@@ -31,6 +31,7 @@ class _Game extends React.Component {
         }
         </View>
         <View style={Styles.space}></View>
+        <View style={Styles.space}></View>
         <View style={Styles.answers}>
           <TouchableNativeFeedback style={Styles.answer}
                   onPress={this.props.incorrect}

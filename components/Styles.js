@@ -52,11 +52,16 @@ const Styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  numberSlider: {
+    width: 200,
+  },
+  numberText: {
+  },
   //
   game: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   syllable: {
     flex: 1,
@@ -64,11 +69,11 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
   },
   syllableTextCursive: {
-    fontSize: 128,
+    fontSize: 96,
     fontFamily: 'cursive',
   },
   syllableTextComputer: {
-    fontSize: 96,
+    fontSize: 72,
     fontFamily: 'computer',
   },
   answers: {
