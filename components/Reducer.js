@@ -54,6 +54,9 @@ function generateSyllable(state) {
     if (state.options.useConsonantFirst) {
       orders.push('CONSONANT_FIRST');
     }
+    if (state.options.useVowelSandwich) {
+      orders.push('VOWEL_SANDWICH');
+    }
     const order = any(orders);
     if (typeof order === 'undefined') {
       return undefined;
@@ -69,18 +72,33 @@ function generateSyllable(state) {
     }).map(([letter, selected]) => {
       return letter;
     });
-    const vowel = any(vowels);
-    const consonant = any(consonants);
-    if (typeof vowel === 'undefined' || typeof consonant === 'undefined') {
-      return undefined;
-    }
     // Build the syllable:
+    let vowel, consonant, first, last;
     switch (order) {
       case 'VOWEL_FIRST':
+        vowel = any(vowels);
+        consonant = any(consonants);
+        if (typeof vowel === 'undefined' || typeof consonant === 'undefined') {
+          return undefined;
+        }
         word = word + vowel + consonant;
         break;
       case 'CONSONANT_FIRST':
+        vowel = any(vowels);
+        consonant = any(consonants);
+        if (typeof vowel === 'undefined' || typeof consonant === 'undefined') {
+          return undefined;
+        }
         word = word + consonant + vowel;
+        break;
+      case 'VOWEL_SANDWICH':
+        vowel = any(vowels);
+        first = any(consonants);
+        last = any(consonants);
+        if (typeof vowel === 'undefined' || typeof first === 'undefined' || typeof last === 'undefined') {
+          return undefined;
+        }
+        word = word + first + vowel + last;
         break;
     }
     // FIXME
@@ -135,6 +153,11 @@ function update(state, action) {
     case 'TOGGLE_VOWEL_FIRST':
       result.options = {...result.options};
       result.options.useVowelFirst = !state.options.useVowelFirst;
+      generateSyllable(result);
+      return result;
+    case 'TOGGLE_VOWEL_SANDWICH':
+      result.options = {...result.options};
+      result.options.useVowelSandwich = !state.options.useVowelSandwich;
       generateSyllable(result);
       return result;
     case 'TOGGLE_CURSIVE':

@@ -30,6 +30,11 @@ class _Options extends React.Component {
           <Switch value={this.props.useConsonantFirst}
                   onValueChange={this.props.toggleConsonantFirst}/>
         </View>
+        <View style={Styles.option}>
+          <Text>Mettre une voyelle entre deux consonnes</Text>
+          <Switch value={this.props.useVowelSandwich}
+                  onValueChange={this.props.toggleVowelSandwich}/>
+        </View>
         <View style={Styles.header}>
           <Text style={Styles.headerText}>Police script</Text>
         </View>
@@ -89,6 +94,11 @@ function mapDispatchToProps(dispatch) {
     toggleVowelFirst: () => {
       dispatch({
         type: 'TOGGLE_VOWEL_FIRST',
+      })
+    },
+    toggleVowelSandwich: () => {
+      dispatch({
+        type: 'TOGGLE_VOWEL_SANDWICH',
       })
     },
     toggleCursive: () => {
