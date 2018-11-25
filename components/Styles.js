@@ -13,7 +13,7 @@ const Styles = StyleSheet.create({
   },
   //
   vowels: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
   },
@@ -23,7 +23,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   header: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -39,7 +39,7 @@ const Styles = StyleSheet.create({
   letterGroup: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    width: 50,
+    width: 60,
   },
   options: {
     flex: 1,
