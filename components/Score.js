@@ -21,27 +21,6 @@ class _Score extends React.Component {
       { x: 1, y: correct, label: "" + correct + " 👍" },
       { x: 2, y: incorrect, label: "" + incorrect + " 👎" },
     ];
-    // height={400}
-    // width={Dimensions.get("window").width}
-    // innerRadius={100}
-    // labelRadius={90}
-    // style={{ labels: { fill: "white", fontSize: 20, fontWeight: "bold" } }}
-    // padAngle={3}
-    // animate={{
-    //   duration: 1000
-    // }}
-    // colorScale={["green", "red"]}
-    // <View style={Styles.score}>
-    //   <Text style={Styles.scoreText}>{correct} 👍</Text>
-    // </View>
-    // <View style={Styles.score}>
-    //   <Text style={Styles.scoreText}>{incorrect} 👎</Text>
-    // </View>
-    // <VictoryChart width={350} theme={VictoryTheme.material}>
-    //   <VictoryPie
-    //     data={data}
-    //   />
-    // </VictoryChart>
     let pie = undefined
     if (correct != 0 || incorrect != 0) {
       pie = <VictoryPie
